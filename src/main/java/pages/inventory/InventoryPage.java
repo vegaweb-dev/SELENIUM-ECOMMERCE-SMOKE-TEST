@@ -22,7 +22,7 @@ public class InventoryPage extends BasePage {
     }
 
 
-    public Boolean isDisplayed(){
+    public Boolean isInventoryPageDisplayed(){
         return find(titleInventoryPageLocator).isDisplayed();
     }
 }

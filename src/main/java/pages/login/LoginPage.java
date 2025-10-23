@@ -44,7 +44,7 @@ public class LoginPage extends BasePage {
         setUser(user);
         setPassword(password);
         clickLoginButton();
-        return new InventoryPage();
+        return new InventoryPage(driver);
     }
 }
 

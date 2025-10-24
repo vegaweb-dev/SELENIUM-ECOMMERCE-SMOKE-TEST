@@ -16,31 +16,31 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    protected void setUser(String user) {
+    public void setUser(String user) {
         set(usernameField, user);
     }
 
-    protected void setPassword(String password) {
+    public void setPassword(String password) {
         set(passwordField, password);
     }
 
-    protected void enterCredentials(String user, String password) {
+    public void enterCredentials(String user, String password) {
         set(usernameField, user);
         set(passwordField, password);
     }
 
-    protected void clickLoginButton() {
+    public void clickLoginButton() {
         click(clickButton);
     }
 
-    protected String errorMessage(String user, String password) {
+    public String errorMessage(String user, String password) {
         setUser(user);
         setPassword(password);
         clickLoginButton();
         return "Epic sadface: Username and password do not match any user in this service";
     }
 
-    protected InventoryPage loginPage(String user, String password){
+    public InventoryPage loginPage(String user, String password){
         setUser(user);
         setPassword(password);
         clickLoginButton();

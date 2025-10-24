@@ -16,13 +16,14 @@ public class InventoryPage extends BasePage {
     // aligned with SauceDemo AUT (using the provided test IDs).
 
 
-    private  By titleInventoryPageLocator = By.cssSelector("[data-test='title']");
-    public InventoryPage(WebDriver driver){
+    private By titleInventoryPageLocator = By.cssSelector("[data-test='title']");
+
+    public InventoryPage(WebDriver driver) {
         super(driver);
     }
 
 
-    public Boolean isInventoryPageDisplayed(){
+    public Boolean isInventoryPageDisplayed() {
         return find(titleInventoryPageLocator).isDisplayed();
     }
 }

@@ -37,5 +37,13 @@ public abstract class BasePage {
         find(locator).click();
     }
 
+    protected void waitForVisibility(By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 
+    protected void waitForClickable(By locator, int seconds) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
 }

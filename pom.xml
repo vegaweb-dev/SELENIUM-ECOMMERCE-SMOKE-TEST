@@ -12,10 +12,13 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Allure version managed centrally via property -->
+        <allure.version>2.24.0</allure.version>
+        <!-- AspectJ version for runtime weaving-->
+        <aspectj.version>1.9.20.1</aspectj.version>
     </properties>
 
     <dependencies>
-
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -30,29 +33,65 @@
             <version>6.3.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.10.2</version>
+            <version>7.11.0</version>
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <!-- Allure testng integration   -->
+            <artifactId>allure-testng</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
+    <!--Centralized version alignment for Allure dependencies-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-bom</artifactId>
+                <version>${allure.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
+    <!-- Build plugins for test execution and reporting -->
     <build>
-
         <plugins>
+            <!-- Surefire plugin for unit & functional test execution Docs:https://maven.apache.org/surefire/maven-surefire-plugin/usage.html-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.4</version>
+
+                <!-- AspectJ agent configuration for Allure TestNG integration. Docs: https://allurereport.org/docs/testng/ -->
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
+            <!--Set up failsafe for CI pipelines. Docs: https://maven.apache.org/surefire/maven-failsafe-plugin/usage.html-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.5.4</version>
+
                 <executions>
                     <execution>
                         <goals>
@@ -62,13 +101,10 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
-
-
     </build>
 
-
+    <!-- Surefire reporting plugin for tests. Docs: https://maven.apache.org/surefire/maven-surefire-report-plugin/usage.html-->
     <reporting>
         <plugins>
             <plugin>

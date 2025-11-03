@@ -11,11 +11,13 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void shouldLoginSuccessfullyAndRedirectToInventoryPage() {
-        String url = ConfigReader.get("url");
+        String url = ConfigReader.get("APP_URL");
+        String user = ConfigReader.get("APP_USER");
+        String password = ConfigReader.get("APP_PASSWORD");
         driver.get(url);
         loginPage = new LoginPage(driver);
-        loginPage.setUser(System.getenv("APP_USER"));
-        loginPage.setPassword(System.getenv("PASSWORD"));
+        loginPage.setUser(user);
+        loginPage.setPassword(password);
         loginPage.clickLoginButton();
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/inventory.html", "Login test failed: Expected user to be redirected to the Inventory page after successful login.");
     }

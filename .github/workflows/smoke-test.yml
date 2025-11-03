@@ -22,3 +22,4 @@ jobs:
       - name: Run tests
         run: mvn clean test
 # temporary change to test secrets in GitHub Actions
+# temporary change to test secrets in GitHub Actions 2

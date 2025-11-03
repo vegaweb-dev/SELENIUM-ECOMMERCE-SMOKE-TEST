@@ -8,14 +8,14 @@ public class ConfigReader {
 
     private static final Properties properties = new Properties();
 
-    static {
+    /*static {
         try (FileInputStream input = new FileInputStream("src/test/resources/config.properties")) {
             properties.load(input);
             System.out.println("config.properties loaded successfully");
         } catch (IOException e) {
             System.out.println("config.properties not found, I go back to environment variables right now");
         }
-    }
+    }*/
 
     public static String get(String key) {
         String envValue = System.getenv(key);

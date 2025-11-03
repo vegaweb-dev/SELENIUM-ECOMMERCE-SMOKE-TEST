@@ -39,3 +39,6 @@ build/
 
 ###environments variables ###
 .env
+
+###
+allure-results/

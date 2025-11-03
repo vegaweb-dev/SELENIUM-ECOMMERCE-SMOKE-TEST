@@ -18,7 +18,12 @@ public class ConfigReader {
     }
 
     public static String get(String key) {
-        String envValue = System.getenv(key.toUpperCase());
+        String envValue = System.getenv(key);
+        if (envValue != null && !envValue.isEmpty()) {
+            return envValue;
+        }
+
+        envValue = System.getenv(key.toUpperCase());
         if (envValue != null && !envValue.isEmpty()) {
             return envValue;
         }
